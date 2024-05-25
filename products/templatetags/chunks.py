@@ -5,10 +5,12 @@ register=template.Library()
 @register.filter(name='chunks')
 def chunks(lst, chunk_size):
     chunk=[]
-    for i in lst:
-        chunk.append(i)
-        i+=1
+    i=0
+    for data in lst:
+        chunk.append(data)
+        i=i+1
         if i==chunk_size:
             yield chunk
+            i=0
             chunk=[]
     yield chunk
