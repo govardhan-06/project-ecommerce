@@ -14,18 +14,31 @@
                         <span onclick="register()">Register</span>
                         <hr id="Indicator">
                     </div>
-                    <form id="LoginForm">
-                        <input type="text" placeholder="Username">
-                        <input type="password" placeholder="Password">
-                        <button type="submit" class="btn">Login</button>
+                    <form id="LoginForm" method="POST">
+                        {%csrf_token%}
+                        <input type="text" name="username" required placeholder="username">
+                        <input type="password" name="password" required placeholder="password">
+                        <input type="email" name="email"required placeholder="email">
+                        <button type="submit" name='login' class="btn">Login</button>
                         <a href="">Forget Password</a>
                     </form>
 
-                    <form id="RegForm">
-                        <input type="text" placeholder="Username">
-                        <input type="email" placeholder="Email">
-                        <input type="password" placeholder="Password">
-                        <button type="submit" class="btn">Register</button>
+                    <form id="RegForm" method="POST">
+                        {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        
+                        {%csrf_token%}
+                        <input style="margin: 2px;" type="text" name="username" required placeholder="username">
+                        <input style="margin: 2px;" type="email" name="email"required placeholder="email">
+                        <input style="margin: 2px;" type="password" name="password" required placeholder="password">
+                        <input style="margin: 2px;" type="text" name="address" required placeholder="Address">
+                        <input style="margin: 2px;" type="text" name="phone" required  placeholder="Phone Number">
+                        <button type="submit" name="register" class="btn">Register</button>
                     </form>
                 </div>
             </div>
