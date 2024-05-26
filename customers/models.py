@@ -16,4 +16,4 @@ class Customers(models.Model):
     status=models.IntegerField(choices=DELETE_CHOICES,default=LIVE)
 
     def __str__(self) -> str:
-        return self.title
+        return self.name

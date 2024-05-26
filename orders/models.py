@@ -7,6 +7,7 @@ class Order(models.Model):
     owner=models.ForeignKey(Customers,on_delete=models.SET_NULL,null=True,related_name='userCart')
     updated_on=models.DateTimeField(auto_now=True)
     created_at=models.DateTimeField(auto_now_add=True)
+    total_price=models.FloatField(null=True)
     CART_STAGE=0
     ORDER_CONFIRMED=1
     ORDER_PROCESSED=2
@@ -21,7 +22,13 @@ class Order(models.Model):
     DELETE_CHOICES = ((LIVE,'LIVE'),(DELETE,'DELETE'))
     status=models.IntegerField(choices=DELETE_CHOICES,default=LIVE)
 
+    def __str__(self):
+        return f'Order {self.id} by {self.owner.user.username}'
+
 class OrdererdItem(models.Model):
     product=models.ForeignKey(Product,on_delete=models.SET_NULL,null=True,related_name='addedItems')
     quantity=models.IntegerField(default=1)
     owner=models.ForeignKey(Customers,on_delete=models.CASCADE,related_name='cart')
+
+    def __str__(self):
+        return f'{self.quantity} of {self.product.name}'
